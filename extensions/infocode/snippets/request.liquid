@@ -1,0 +1,46 @@
+
+<script>
+require('dotenv').config()
+document.addEventListener('DOMContentLoaded', function() {
+  // Escuchar el evento de cambio en el campo GTIN
+  document.querySelector('[name="block[settings][gtin]"]').addEventListener('input', function() {
+    const gtinValue = this.value; // Obtener el valor del campo GTIN
+
+    // URL de la API que deseas consumir
+    const apiUrl = `https://infocode.io/b2b/${gtinValuegallery}/gallery`;
+
+    // Token de autorización (reemplaza 'TU_TOKEN_AQUI' con tu token real)
+    const authToken = 'dd641f72696327b6cbb3f73b87223d6f425df69d3bcb4764a1ef8f9cd9f750e4';
+
+    // Opciones para la solicitud fetch, incluyendo el encabezado de autorización
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }
+    };
+
+    // Realizar la solicitud fetch cuando el campo GTIN cambie
+    fetch(apiUrl, fetchOptions)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(`Error en la solicitud: ${response.status} - ${response.statusText}`);
+        }
+      })
+      .then(data => {
+        // Trabajar con los datos obtenidos de la API y el valor de gtinValue
+        console.log('Datos de la API:', data);
+        console.log('Valor de GTIN:', gtinValue);
+
+        // Agregar el resultado a un elemento en la página (puedes personalizar esto)
+        const resultElement = document.querySelector('#apiResult');
+        resultElement.innerHTML = JSON.stringify(data);
+      })
+      .catch(error => {
+        console.error('Error al consumir la API:', error);
+      });
+  });
+});
+</script>

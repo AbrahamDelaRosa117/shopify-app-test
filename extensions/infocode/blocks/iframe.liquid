@@ -1,0 +1,21 @@
+{% render 'request' %}
+<span style="color: {{ block.settings.color }}">
+  {{ block.settings.gtin }}
+
+</span>
+
+<!-- Contenedor para mostrar los datos de la API -->
+<div id="apiResult"></div>
+
+
+{% schema %}
+  {
+    "name": "Hello World",
+    "target": "section",
+    "settings": [
+        { "label": "Color", "id": "color", "type": "color", "default": "#000000" },
+        { "label": "Introduce el gtin dle producto", "id": "gtin", "type": "text" }
+        
+    ]
+  }
+{% endschema %}
